@@ -10,7 +10,7 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcutil/hdkeychain"
-	ethereum "github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -208,7 +208,7 @@ func (w *Wallet) SignHash(account accounts.Account, hash []byte) ([]byte, error)
 		return nil, accounts.ErrUnknownAccount
 	}
 
-	privateKey, err := w.derivePrivateKey(path)
+	privateKey, err := w.DerivePrivateKey(path)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +227,7 @@ func (w *Wallet) SignTxEIP155(account accounts.Account, tx *types.Transaction, c
 		return nil, accounts.ErrUnknownAccount
 	}
 
-	privateKey, err := w.derivePrivateKey(path)
+	privateKey, err := w.DerivePrivateKey(path)
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +262,7 @@ func (w *Wallet) SignTx(account accounts.Account, tx *types.Transaction, chainID
 		return nil, accounts.ErrUnknownAccount
 	}
 
-	privateKey, err := w.derivePrivateKey(path)
+	privateKey, err := w.DerivePrivateKey(path)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +306,7 @@ func (w *Wallet) PrivateKey(account accounts.Account) (*ecdsa.PrivateKey, error)
 		return nil, err
 	}
 
-	return w.derivePrivateKey(path)
+	return w.DerivePrivateKey(path)
 }
 
 // PrivateKeyBytes returns the ECDSA private key in bytes format of the account.
@@ -336,7 +336,7 @@ func (w *Wallet) PublicKey(account accounts.Account) (*ecdsa.PublicKey, error) {
 		return nil, err
 	}
 
-	return w.derivePublicKey(path)
+	return w.DerivePublicKey(path)
 }
 
 // PublicKeyBytes returns the ECDSA public key in bytes format of the account.
@@ -477,7 +477,7 @@ func NewSeedFromMnemonic(mnemonic string) ([]byte, error) {
 }
 
 // DerivePrivateKey derives the private key of the derivation path.
-func (w *Wallet) derivePrivateKey(path accounts.DerivationPath) (*ecdsa.PrivateKey, error) {
+func (w *Wallet) DerivePrivateKey(path accounts.DerivationPath) (*ecdsa.PrivateKey, error) {
 	var err error
 	key := w.masterKey
 	for _, n := range path {
@@ -497,8 +497,8 @@ func (w *Wallet) derivePrivateKey(path accounts.DerivationPath) (*ecdsa.PrivateK
 }
 
 // DerivePublicKey derives the public key of the derivation path.
-func (w *Wallet) derivePublicKey(path accounts.DerivationPath) (*ecdsa.PublicKey, error) {
-	privateKeyECDSA, err := w.derivePrivateKey(path)
+func (w *Wallet) DerivePublicKey(path accounts.DerivationPath) (*ecdsa.PublicKey, error) {
+	privateKeyECDSA, err := w.DerivePrivateKey(path)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +514,7 @@ func (w *Wallet) derivePublicKey(path accounts.DerivationPath) (*ecdsa.PublicKey
 
 // DeriveAddress derives the account address of the derivation path.
 func (w *Wallet) deriveAddress(path accounts.DerivationPath) (common.Address, error) {
-	publicKeyECDSA, err := w.derivePublicKey(path)
+	publicKeyECDSA, err := w.DerivePublicKey(path)
 	if err != nil {
 		return common.Address{}, err
 	}

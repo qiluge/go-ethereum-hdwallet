@@ -1,4 +1,4 @@
-module github.com/immutability-io/go-ethereum-hdwallet
+module github.com/miguelmota/go-ethereum-hdwallet
 
 go 1.12
 
@@ -17,7 +17,8 @@ require (
 	github.com/huin/goupnp v1.0.0 // indirect
 	github.com/jackpal/go-nat-pmp v1.0.1 // indirect
 	github.com/karalabe/hid v1.0.0 // indirect
-	github.com/miguelmota/go-ethereum-hdwallet v0.0.0-20190720004541-5f6b3168e4a0
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
